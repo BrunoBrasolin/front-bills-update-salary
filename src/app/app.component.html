@@ -1,0 +1,20 @@
+<main>
+  <h1>Atualizar Salário</h1>
+
+  <section>
+    <label>
+      Atualizar salário:
+      <input type="number" [(ngModel)]="salary" />
+    </label>
+    <br>
+    <label>
+      Pessoa
+      <select [(ngModel)]="person">
+        <option value="0">Letícia</option>
+        <option value="1">Bruno</option>
+      </select>
+    </label>
+
+    <button type="button" (click)="onClickAtualizar()">Atualizar</button>
+  </section>
+</main>
