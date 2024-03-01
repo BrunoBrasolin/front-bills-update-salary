@@ -36,7 +36,11 @@ export class AppComponent {
 
   onClickAtualizar(): void {
     if (this.salary === null || this.person === null) {
-      alert('Favor colocar dados válidos!');
+      this.snackBar.open(`Favor colocar dados válidos!`, 'Fechar', {
+        horizontalPosition: this.horizontalPosition,
+        verticalPosition: this.verticalPosition,
+        duration: this.timer
+      });
       return;
     }
 
@@ -53,7 +57,7 @@ export class AppComponent {
   }
 
   handleSuccess(): void {
-    this.snackBar.open(`Salário de ${this.person} atualizado para ${this.salary}!`, 'Botao', {
+    this.snackBar.open(`Salário de ${this.person} atualizado para ${this.salary}!`, 'Fechar', {
       horizontalPosition: this.horizontalPosition,
       verticalPosition: this.verticalPosition,
       duration: this.timer
