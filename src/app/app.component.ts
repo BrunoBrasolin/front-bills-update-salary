@@ -7,6 +7,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSnackBarModule, MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
+
 
 @Component({
   selector: 'app-root',
@@ -17,18 +19,22 @@ import { MatSelectModule } from '@angular/material/select';
     MatInputModule,
     MatButtonModule,
     MatCardModule,
-    MatSelectModule
+    MatSelectModule,
+    MatSnackBarModule
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  constructor(private service: AppService) {
+  constructor(private service: AppService, private snackBar: MatSnackBar) {
   }
   public salary: number | null = null;
   public person: PersonInterface | null = null;
+  public horizontalPosition: MatSnackBarHorizontalPosition = 'center';
+  public verticalPosition: MatSnackBarVerticalPosition = 'bottom';
+  public timer: number = 3000;
 
-  onClickAtualizar() {
+  onClickAtualizar(): void {
     if (this.salary === null || this.person === null) {
       alert('Favor colocar dados válidos!');
       return;
@@ -39,6 +45,27 @@ export class AppComponent {
       person: this.person
     }
 
-    this.service.UpdateSalary(dto).subscribe(s => console.log(s));
+    this.service.UpdateSalary(dto)
+      .subscribe({
+        next: this.handleSuccess.bind(this),
+        error: this.handleError.bind(this)
+      });
+  }
+
+  handleSuccess(): void {
+    this.snackBar.open(`Salário de ${this.person} atualizado para ${this.salary}!`, 'Botao', {
+      horizontalPosition: this.horizontalPosition,
+      verticalPosition: this.verticalPosition,
+      duration: this.timer
+    });
+  }
+
+  handleError(): void {
+    this.snackBar.open('Erro, favor contatar o Maggie Hub!', 'Fechar', {
+      horizontalPosition: this.horizontalPosition,
+      verticalPosition: this.verticalPosition,
+      duration: this.timer
+    });
+
   }
 }
