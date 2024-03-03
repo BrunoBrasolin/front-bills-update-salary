@@ -70,6 +70,5 @@ export class AppComponent {
       verticalPosition: this.verticalPosition,
       duration: this.timer
     });
-
   }
 }
