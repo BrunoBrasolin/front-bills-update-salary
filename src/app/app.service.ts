@@ -12,6 +12,6 @@ export class AppService {
 
   public UpdateSalary(dto: ApiDtoInterface): Observable<void> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post<void>(`http://168.75.82.21:81/api/atualizar-salario`, JSON.stringify(dto), { headers })
+    return this.http.post<void>(`https://152.67.63.173/api-contas/api/atualizar-salario`, JSON.stringify(dto), { headers })
   }
 }
